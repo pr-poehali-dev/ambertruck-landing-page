@@ -48,10 +48,26 @@ export default function Index() {
   ];
 
   const advantages = [
-    { icon: 'Zap', title: 'Легендарные двигатели', text: 'Isuzu и Cummins с ресурсом более 500 000 км' },
-    { icon: 'Droplet', title: 'EURO-4 без мочевины', text: 'Выгодная эксплуатация без дополнительных затрат' },
-    { icon: 'Package', title: 'Прочный кузов', text: 'Усиленный пол и стенки для максимальной надежности' },
-    { icon: 'Settings', title: 'Надежная трансмиссия', text: 'Гидравлические тормоза и проверенная КПП' }
+    { 
+      title: 'Легендарные двигатели', 
+      text: 'Isuzu и Cummins с ресурсом более 500 000 км',
+      image: 'https://cdn.poehali.dev/projects/4b385346-6822-47ef-a3ac-b9cb674a3b9f/files/36e5349a-cadd-44fe-b45f-93065dbd058d.jpg'
+    },
+    { 
+      title: 'Выгодные условия', 
+      text: 'Кредит, лизинг, trade-in. Первый взнос от 0%, ставка от 15%',
+      image: 'https://cdn.poehali.dev/projects/4b385346-6822-47ef-a3ac-b9cb674a3b9f/files/82159b68-f05e-4ad1-bd6e-79afc2343f87.jpg'
+    },
+    { 
+      title: 'Прочный кузов', 
+      text: 'Усиленный пол и стенки для максимальной надежности',
+      image: 'https://cdn.poehali.dev/projects/4b385346-6822-47ef-a3ac-b9cb674a3b9f/files/0fc6ea64-09d2-440b-bfd2-c99fc4eea3e3.jpg'
+    },
+    { 
+      title: 'Антикоррозийная защита', 
+      text: '4-ступенчатая система защиты кузова от коррозии',
+      image: 'https://cdn.poehali.dev/projects/4b385346-6822-47ef-a3ac-b9cb674a3b9f/files/14c9d645-10b7-4244-9565-0f5bafba4863.jpg'
+    }
   ];
 
   const financing = [
@@ -136,10 +152,7 @@ export default function Index() {
             </p>
             <div className="flex flex-wrap gap-4 mb-8">
               <Button size="lg" className="text-lg px-8 bg-accent hover:bg-accent/90">
-                Подобрать модель
-              </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 bg-white/10 hover:bg-white/20 text-white border-white">
-                Рассчитать лизинг
+                Получить консультацию
               </Button>
             </div>
             <div className="flex flex-wrap gap-6 text-sm md:text-base">
@@ -185,102 +198,13 @@ export default function Index() {
                 <CardContent className="p-6">
                   <h3 className="text-2xl font-bold mb-4">{model.name}</h3>
                   <div className="text-3xl font-bold text-accent mb-4">{model.price} ₽</div>
-                  <div className="space-y-2 mb-6 text-muted-foreground">
-                    <div className="flex justify-between">
-                      <span>Мощность:</span>
-                      <span className="font-semibold text-foreground">{model.power} л.с.</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Объём кузова:</span>
-                      <span className="font-semibold text-foreground">{model.volume} м³</span>
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button className="flex-1 bg-accent hover:bg-accent/90">Получить предложение</Button>
-                    <Button variant="outline" className="flex-1">Подробнее</Button>
-                  </div>
+                  <Button variant="outline" className="w-full">Подробнее</Button>
                 </CardContent>
               </Card>
             ))}
           </div>
 
-          <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
-            <h3 className="text-3xl font-bold text-center mb-12">Почему AmberVan?</h3>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center p-6 rounded-xl bg-muted/30">
-                <div className="text-destructive text-xl font-bold mb-4">Европейцы</div>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Icon name="X" size={16} className="text-destructive" />
-                    <span>Высокая цена</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Icon name="X" size={16} className="text-destructive" />
-                    <span>Требуют мочевину AdBlue</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Icon name="X" size={16} className="text-destructive" />
-                    <span>Недоступность запчастей</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Icon name="X" size={16} className="text-destructive" />
-                    <span>Тесный салон</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="text-center bg-primary/5 rounded-xl p-6 border-2 border-primary shadow-lg scale-105">
-                <div className="text-primary text-2xl font-bold mb-4 flex items-center justify-center gap-2">
-                  <Icon name="Award" size={28} className="text-accent" />
-                  AmberVan
-                </div>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center gap-2 font-semibold">
-                    <Icon name="Check" size={16} className="text-green-600" />
-                    <span>Конкурентная цена</span>
-                  </div>
-                  <div className="flex items-center gap-2 font-semibold">
-                    <Icon name="Check" size={16} className="text-green-600" />
-                    <span>EURO-4 без мочевины</span>
-                  </div>
-                  <div className="flex items-center gap-2 font-semibold">
-                    <Icon name="Check" size={16} className="text-green-600" />
-                    <span>Большая вместимость</span>
-                  </div>
-                  <div className="flex items-center gap-2 font-semibold">
-                    <Icon name="Check" size={16} className="text-green-600" />
-                    <span>Просторный салон</span>
-                  </div>
-                  <div className="flex items-center gap-2 font-semibold">
-                    <Icon name="Check" size={16} className="text-green-600" />
-                    <span>4-ступенчатая защита</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="text-center p-6 rounded-xl bg-muted/30">
-                <div className="text-destructive text-xl font-bold mb-4">Китайцы</div>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Icon name="X" size={16} className="text-destructive" />
-                    <span>Низкое качество</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Icon name="X" size={16} className="text-destructive" />
-                    <span>Быстрая коррозия</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Icon name="X" size={16} className="text-destructive" />
-                    <span>Тесный салон</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Icon name="X" size={16} className="text-destructive" />
-                    <span>Сомнительный сервис</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
         </div>
       </section>
 
@@ -290,67 +214,23 @@ export default function Index() {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
             {advantages.map((adv, index) => (
-              <Card key={index} className="text-center p-6 hover-scale border-2 hover:border-primary transition-all">
-                <CardContent className="p-0">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                    <Icon name={adv.icon} className="text-primary" size={32} />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">{adv.title}</h3>
+              <Card key={index} className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500">
+                <div className="aspect-square overflow-hidden">
+                  <img 
+                    src={adv.image} 
+                    alt={adv.title} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                  />
+                </div>
+                <CardContent className="p-6 bg-gradient-to-br from-white to-muted/30 group-hover:from-accent/5 group-hover:to-accent/10 transition-all duration-500">
+                  <h3 className="text-xl font-bold mb-3 group-hover:text-accent transition-colors duration-300">{adv.title}</h3>
                   <p className="text-muted-foreground">{adv.text}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
 
-          <Card className="p-8 md:p-12 bg-gradient-to-br from-white to-muted">
-            <h3 className="text-3xl font-bold mb-8 text-center">4-ступенчатая защита от коррозии</h3>
-            <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
-              <AccordionItem value="item-1">
-                <AccordionTrigger className="text-lg font-semibold hover:text-primary">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold text-lg">1</div>
-                    <span>Окраска кузова и рамы</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pl-14 text-base">
-                  Специальная многослойная грунтовка и покрытие защищают кузов и раму от коррозии на протяжении всего срока службы
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger className="text-lg font-semibold hover:text-primary">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold text-lg">2</div>
-                    <span>Антигравийное покрытие</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pl-14 text-base">
-                  Защитное покрытие нижней части кузова предотвращает повреждения от камней и дорожного мусора
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger className="text-lg font-semibold hover:text-primary">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold text-lg">3</div>
-                    <span>Обработка внутренних полостей</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pl-14 text-base">
-                  Все скрытые полости обработаны специальными антикоррозийными составами для защиты изнутри
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-4">
-                <AccordionTrigger className="text-lg font-semibold hover:text-primary">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold text-lg">4</div>
-                    <span>Защитная пленка на металле</span>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pl-14 text-base">
-                  Прозрачная защитная пленка предохраняет металл от царапин, сколов и воздействия агрессивных сред
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </Card>
+
         </div>
       </section>
 
@@ -457,6 +337,15 @@ export default function Index() {
                   <div className="flex items-center gap-3">
                     <Icon name="Check" className="text-green-600" />
                     <span>Более 800 довольных клиентов</span>
+                  </div>
+                </div>
+                <div className="mt-8">
+                  <h4 className="font-bold mb-4">Наши партнеры</h4>
+                  <div className="flex flex-wrap gap-4 items-center opacity-60">
+                    <div className="px-4 py-2 bg-white rounded border text-sm font-semibold">Сбербанк</div>
+                    <div className="px-4 py-2 bg-white rounded border text-sm font-semibold">ВТБ</div>
+                    <div className="px-4 py-2 bg-white rounded border text-sm font-semibold">Совкомбанк</div>
+                    <div className="px-4 py-2 bg-white rounded border text-sm font-semibold">Ресо</div>
                   </div>
                 </div>
                 <Button size="lg" className="mt-8 bg-accent hover:bg-accent/90">Получить консультацию</Button>
