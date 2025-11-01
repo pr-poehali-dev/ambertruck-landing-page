@@ -1,133 +1,117 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Icon from '@/components/ui/icon';
 
 export default function Index() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [selectedBrand, setSelectedBrand] = useState('');
+  const [selectedModel, setSelectedModel] = useState('');
   const [formData, setFormData] = useState({ name: '', phone: '' });
+  const formRef = useRef<HTMLElement>(null);
 
   const slides = [
     {
-      title: 'AmberVan — надежная основа вашего бизнеса',
-      subtitle: 'Вместительные фургоны для малого и среднего бизнеса. EURO-4 без мочевины. Легендарные двигатели ISUZU и Cummins. Уникальная 4-ступенчатая защита от коррозии',
+      title: 'Ваш бизнес в движении. AmberVan — надежная основа роста.',
+      subtitle: 'Вместительные фургоны с пожизненной защитой от коррозии. Легендарные двигатели ISUZU и Cummins.',
       image: 'https://cdn.poehali.dev/projects/4b385346-6822-47ef-a3ac-b9cb674a3b9f/files/14c9d645-10b7-4244-9565-0f5bafba4863.jpg'
-    },
-    {
-      title: 'Специальные условия на AmberVan SN',
-      subtitle: 'Надежный помощник с гарантией 3 года и бесплатным ТО',
-      image: 'https://cdn.poehali.dev/projects/4b385346-6822-47ef-a3ac-b9cb674a3b9f/files/266c941a-f210-414d-a1f3-0f4c43f65be6.jpg'
     }
   ];
 
-  const models = [
+  const brands = [
     { 
       name: 'AmberVan JL', 
-      price: 'от 2 490 000', 
-      power: '120', 
-      volume: '10', 
+      description: 'Для городской логистики',
       image: 'https://cdn.poehali.dev/projects/4b385346-6822-47ef-a3ac-b9cb674a3b9f/files/14c9d645-10b7-4244-9565-0f5bafba4863.jpg' 
     },
     { 
       name: 'AmberVan JM', 
-      price: 'от 2 990 000', 
-      power: '150', 
-      volume: '13', 
+      description: 'Для доставки и перевозок',
       image: 'https://cdn.poehali.dev/projects/4b385346-6822-47ef-a3ac-b9cb674a3b9f/files/266c941a-f210-414d-a1f3-0f4c43f65be6.jpg' 
     },
     { 
       name: 'AmberVan SN', 
-      price: 'от 3 690 000', 
-      power: '170', 
-      volume: '16', 
+      description: 'Для крупных грузов',
       image: 'https://cdn.poehali.dev/projects/4b385346-6822-47ef-a3ac-b9cb674a3b9f/files/14c9d645-10b7-4244-9565-0f5bafba4863.jpg' 
     }
   ];
 
+  const models = ['Базовая', 'Стандарт', 'Комфорт'];
+
   const advantages = [
     { 
       title: 'Легендарные двигатели', 
-      text: 'Isuzu и Cummins с ресурсом более 500 000 км',
+      text: 'Isuzu и Cummins с ресурсом >500 000 км. Работайте без простоев',
+      icon: 'Zap',
       image: 'https://cdn.poehali.dev/projects/4b385346-6822-47ef-a3ac-b9cb674a3b9f/files/36e5349a-cadd-44fe-b45f-93065dbd058d.jpg'
     },
     { 
-      title: 'Выгодные условия', 
-      text: 'Кредит, лизинг, trade-in. Первый взнос от 0%, ставка от 15%',
+      title: 'Выгода без мочевины', 
+      text: 'ECO-стандарт без мочевины (AdBlue). Экономьте до 40 000 ₽ в год на эксплуатации',
+      icon: 'DollarSign',
       image: 'https://cdn.poehali.dev/projects/4b385346-6822-47ef-a3ac-b9cb674a3b9f/files/82159b68-f05e-4ad1-bd6e-79afc2343f87.jpg'
     },
     { 
-      title: 'Прочный кузов', 
-      text: 'Усиленный пол и стенки для максимальной надежности',
+      title: 'Прочность и надежность', 
+      text: 'Усиленный кузов и рамная конструкция. Гидравлические тормоза с ABS для полной безопасности',
+      icon: 'Shield',
       image: 'https://cdn.poehali.dev/projects/4b385346-6822-47ef-a3ac-b9cb674a3b9f/files/0fc6ea64-09d2-440b-bfd2-c99fc4eea3e3.jpg'
     },
     { 
-      title: 'Антикоррозийная защита', 
-      text: '4-ступенчатая система защиты кузова от коррозии',
+      title: 'Сервис «Все включено»', 
+      text: 'Ваш персональный менеджер и выездная служба поддержки 24/7',
+      icon: 'Headphones',
       image: 'https://cdn.poehali.dev/projects/4b385346-6822-47ef-a3ac-b9cb674a3b9f/files/14c9d645-10b7-4244-9565-0f5bafba4863.jpg'
-    }
-  ];
-
-  const financing = [
-    { icon: 'CreditCard', title: 'Кредит', items: ['Первый взнос от 0%', 'Ставка от 15%', 'Одобрение за 1 день'] },
-    { icon: 'FileText', title: 'Лизинг', items: ['Аванс от 0%', 'Экономия на налоге', 'Индивидуальные условия'] },
-    { icon: 'RefreshCw', title: 'Trade-in', items: ['Оценка за 15 минут', 'Справедливая цена', 'Все заботы на дилере'] }
-  ];
-
-  const testimonials = [
-    { 
-      name: 'Алексей Морозов', 
-      position: 'Директор', 
-      company: 'ООО "Экспресс Доставка"', 
-      model: 'AmberVan JM', 
-      text: 'За год эксплуатации ни одной поломки. Экономичный и вместительный фургон для нашей службы доставки.' 
-    },
-    { 
-      name: 'Дмитрий Соколов', 
-      position: 'Владелец', 
-      company: 'ИП Соколов', 
-      model: 'AmberVan SN', 
-      text: 'Отличное соотношение цены и качества. Берет все, что нужно. Обслуживание простое и недорогое.' 
     }
   ];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 6000);
     return () => clearInterval(timer);
   }, []);
 
+  const handleBrandSelect = (brand: string) => {
+    setSelectedBrand(brand);
+    setSelectedModel('');
+  };
+
+  const handleModelSelect = (model: string) => {
+    setSelectedModel(model);
+  };
+
+  const scrollToForm = () => {
+    formRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log('Form submitted:', { ...formData, brand: selectedBrand, model: selectedModel });
     alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
     setFormData({ name: '', phone: '' });
   };
 
   return (
-    <div className="min-h-screen">
-      <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+    <div className="min-h-screen bg-white">
+      <header className="fixed top-0 w-full bg-secondary/95 backdrop-blur-sm shadow-lg z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                  <Icon name="Package" className="text-white" size={24} />
-                </div>
-                <div>
-                  <div className="text-xs text-muted-foreground">ТТМ Центр</div>
-                  <div className="text-xl font-bold text-primary">AmberVan</div>
-                </div>
-              </div>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
+              <Icon name="Package" className="text-white" size={24} />
+            </div>
+            <div>
+              <div className="text-xs text-white/70">ТТМ Центр</div>
+              <div className="text-xl font-bold text-white">AmberVan</div>
             </div>
           </div>
-          <div className="hidden md:flex items-center gap-4">
-            <a href="tel:88000000000" className="text-lg font-semibold">8 (800) 000-00-00</a>
-            <Button variant="outline">Позвонить</Button>
-            <Button className="bg-accent hover:bg-accent/90">Получить консультацию</Button>
+          <div className="flex items-center gap-4">
+            <a href="tel:88000000000" className="text-lg font-semibold text-white flex items-center gap-2">
+              <Icon name="Phone" size={20} />
+              8 (800) 000-00-00
+            </a>
           </div>
         </div>
       </header>
@@ -137,9 +121,9 @@ export default function Index() {
           <img 
             src={slides[currentSlide].image} 
             alt="AmberVan" 
-            className="w-full h-full object-cover transition-opacity duration-1000"
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/60 to-transparent" />
         </div>
         
         <div className="relative container mx-auto px-4 h-full flex flex-col justify-center">
@@ -150,262 +134,276 @@ export default function Index() {
             <p className="text-xl md:text-2xl mb-8 leading-relaxed opacity-90">
               {slides[currentSlide].subtitle}
             </p>
-            <div className="flex flex-wrap gap-4 mb-8">
-              <Button size="lg" className="text-lg px-8 bg-accent hover:bg-accent/90">
-                Получить консультацию
-              </Button>
-            </div>
-            <div className="flex flex-wrap gap-6 text-sm md:text-base">
+            <div className="flex flex-wrap gap-6 text-sm md:text-base mb-8">
               <div className="flex items-center gap-2">
-                <Icon name="Shield" size={20} />
+                <Icon name="Shield" size={20} className="text-accent" />
                 <span>Гарантия 3 года</span>
               </div>
               <div className="flex items-center gap-2">
-                <Icon name="Percent" size={20} />
+                <Icon name="Percent" size={20} className="text-accent" />
                 <span>Кредит от 0%</span>
               </div>
               <div className="flex items-center gap-2">
-                <Icon name="RefreshCw" size={20} />
+                <Icon name="RefreshCw" size={20} className="text-accent" />
                 <span>Trade-in с выгодой</span>
               </div>
             </div>
-          </div>
-          
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`h-2 rounded-full transition-all ${
-                  index === currentSlide ? 'bg-accent w-8' : 'bg-white/50 w-2'
-                }`}
-              />
-            ))}
+            <Button size="lg" className="text-lg px-12 bg-accent hover:bg-accent/90" onClick={scrollToForm}>
+              Получить консультацию
+            </Button>
           </div>
         </div>
       </section>
 
       <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">Выберите модель под вашу задачу</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">Почему AmberVan — выгодное вложение?</h2>
           
-          <div className="grid md:grid-cols-3 gap-8 mb-20">
-            {models.map((model, index) => (
-              <Card key={index} className="hover-scale overflow-hidden border-2 hover:border-primary transition-all">
-                <div className="aspect-video overflow-hidden bg-gradient-to-br from-muted to-white">
-                  <img src={model.image} alt={model.name} className="w-full h-full object-cover" />
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-2xl font-bold mb-4">{model.name}</h3>
-                  <div className="text-3xl font-bold text-accent mb-4">{model.price} ₽</div>
-                  <Button variant="outline" className="w-full">Подробнее</Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-
-        </div>
-      </section>
-
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">Ключевые преимущества</h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          <div className="grid md:grid-cols-2 gap-8">
             {advantages.map((adv, index) => (
               <Card key={index} className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500">
-                <div className="aspect-square overflow-hidden">
+                <div className="aspect-video overflow-hidden bg-secondary/5">
                   <img 
                     src={adv.image} 
                     alt={adv.title} 
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                   />
                 </div>
-                <CardContent className="p-6 bg-gradient-to-br from-white to-muted/30 group-hover:from-accent/5 group-hover:to-accent/10 transition-all duration-500">
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-accent transition-colors duration-300">{adv.title}</h3>
-                  <p className="text-muted-foreground">{adv.text}</p>
+                <CardContent className="p-8 bg-gradient-to-br from-white to-muted/30 group-hover:from-accent/5 group-hover:to-accent/10 transition-all duration-500">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
+                      <Icon name={adv.icon} className="text-accent" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold mb-3 group-hover:text-accent transition-colors duration-300">{adv.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed">{adv.text}</p>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             ))}
           </div>
+        </div>
+      </section>
 
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Подберите фургон под ваши задачи</h2>
+            <p className="text-xl text-muted-foreground">Ответьте на 2 вопроса и получите коммерческое предложение с точной стоимостью</p>
+          </div>
 
+          <div className="max-w-5xl mx-auto">
+            <div className="mb-12">
+              <h3 className="text-2xl font-bold mb-6">Шаг 1: Выберите марку</h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                {brands.map((brand, index) => (
+                  <Card 
+                    key={index} 
+                    className={`cursor-pointer overflow-hidden transition-all duration-300 ${
+                      selectedBrand === brand.name 
+                        ? 'border-2 border-accent shadow-2xl scale-105' 
+                        : 'border-2 border-transparent hover:border-muted hover:shadow-lg'
+                    }`}
+                    onClick={() => handleBrandSelect(brand.name)}
+                  >
+                    <div className="aspect-video overflow-hidden bg-muted/30">
+                      <img src={brand.image} alt={brand.name} className="w-full h-full object-cover" />
+                    </div>
+                    <CardContent className="p-6 text-center">
+                      <h4 className="text-xl font-bold mb-2">{brand.name}</h4>
+                      <p className="text-muted-foreground text-sm">{brand.description}</p>
+                      {selectedBrand === brand.name && (
+                        <div className="mt-4">
+                          <Icon name="Check" className="text-accent mx-auto" size={24} />
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {selectedBrand && (
+              <div className="mb-12 fade-in">
+                <h3 className="text-2xl font-bold mb-6">Шаг 2: Уточните модель и комплектацию</h3>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {models.map((model, index) => (
+                    <Card 
+                      key={index} 
+                      className={`cursor-pointer transition-all duration-300 ${
+                        selectedModel === model 
+                          ? 'border-2 border-accent shadow-2xl scale-105 bg-accent/5' 
+                          : 'border-2 border-muted hover:border-accent/50 hover:shadow-lg'
+                      }`}
+                      onClick={() => handleModelSelect(model)}
+                    >
+                      <CardContent className="p-8 text-center">
+                        <h4 className="text-2xl font-bold mb-2">{model}</h4>
+                        {selectedModel === model && (
+                          <Icon name="Check" className="text-accent mx-auto mt-4" size={28} />
+                        )}
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {selectedBrand && selectedModel && (
+              <div className="text-center fade-in">
+                <Button 
+                  size="lg" 
+                  className="text-xl px-12 py-6 bg-accent hover:bg-accent/90"
+                  onClick={scrollToForm}
+                >
+                  Рассчитать точную стоимость →
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
       <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">Выгодные условия для вашего бизнеса</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">Нам доверяют бизнес-задачи</h2>
           
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            {financing.map((fin, index) => (
-              <Card key={index} className="p-8 hover-scale bg-white">
-                <CardContent className="p-0">
-                  <div className="w-16 h-16 mb-6 bg-primary/10 rounded-full flex items-center justify-center">
-                    <Icon name={fin.icon} className="text-primary" size={32} />
-                  </div>
-                  <h3 className="text-2xl font-bold mb-4">{fin.title}</h3>
-                  <ul className="space-y-3">
-                    {fin.items.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <Icon name="Check" className="text-green-600 mt-1 flex-shrink-0" size={16} />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <Card className="p-8 md:p-12 bg-gradient-to-br from-accent to-accent/90 text-white text-center shadow-2xl">
-            <h3 className="text-3xl font-bold mb-6">Узнайте ваши условия за 15 минут</h3>
-            <form onSubmit={handleSubmit} className="max-w-2xl mx-auto">
-              <div className="flex flex-col md:flex-row gap-4">
-                <Input 
-                  placeholder="Ваше имя" 
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="bg-white text-foreground flex-1"
-                  required
-                />
-                <Input 
-                  placeholder="Ваш телефон" 
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  className="bg-white text-foreground flex-1"
-                  required
-                />
-                <Button type="submit" size="lg" variant="secondary" className="md:w-auto bg-white text-accent hover:bg-white/90">
-                  Получить предложение
-                </Button>
-              </div>
-            </form>
-          </Card>
-        </div>
-      </section>
-
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">Нам доверяют предприятия России</h2>
-          
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
-            {testimonials.map((test, index) => (
-              <Card key={index} className="p-8 hover-scale">
-                <CardContent className="p-0">
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Icon key={i} name="Star" className="text-yellow-400 fill-yellow-400" size={20} />
-                    ))}
-                  </div>
-                  <p className="text-lg mb-6 italic text-muted-foreground">"{test.text}"</p>
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Icon name="User" className="text-primary" size={24} />
-                    </div>
-                    <div>
-                      <div className="font-bold">{test.name}</div>
-                      <div className="text-sm text-muted-foreground">{test.position}, {test.company}</div>
-                      <div className="text-sm text-accent font-semibold">{test.model}</div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <Card className="overflow-hidden">
-            <div className="grid md:grid-cols-2">
-              <div className="p-8 md:p-12">
-                <h3 className="text-3xl font-bold mb-6">О дилере</h3>
-                <p className="text-muted-foreground mb-6">Официальный дилер AmberVan с 2010 года</p>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <Icon name="Check" className="text-green-600" />
-                    <span>Собственный сервисный центр</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Icon name="Check" className="text-green-600" />
-                    <span>Склад оригинальных запчастей</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Icon name="Check" className="text-green-600" />
-                    <span>Индивидуальные условия для бизнеса</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Icon name="Check" className="text-green-600" />
-                    <span>Более 800 довольных клиентов</span>
-                  </div>
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
+            <div>
+              <img 
+                src="https://cdn.poehali.dev/projects/4b385346-6822-47ef-a3ac-b9cb674a3b9f/files/018e80f6-4796-44e7-8a50-b2cda79c01b9.jpg" 
+                alt="ТТМ Центр" 
+                className="rounded-2xl shadow-2xl w-full"
+              />
+            </div>
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                  <Icon name="Award" className="text-white" size={24} />
                 </div>
-                <div className="mt-8">
-                  <h4 className="font-bold mb-4">Наши партнеры</h4>
-                  <div className="flex flex-wrap gap-4 items-center opacity-60">
-                    <div className="px-4 py-2 bg-white rounded border text-sm font-semibold">Сбербанк</div>
-                    <div className="px-4 py-2 bg-white rounded border text-sm font-semibold">ВТБ</div>
-                    <div className="px-4 py-2 bg-white rounded border text-sm font-semibold">Совкомбанк</div>
-                    <div className="px-4 py-2 bg-white rounded border text-sm font-semibold">Ресо</div>
-                  </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-2">15 лет на рынке коммерческого транспорта</h3>
+                  <p className="text-muted-foreground">Проверенный временем опыт и репутация</p>
                 </div>
-                <Button size="lg" className="mt-8 bg-accent hover:bg-accent/90">Получить консультацию</Button>
               </div>
-              <div className="h-64 md:h-auto bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                <Icon name="Building2" className="text-primary/30" size={120} />
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                  <Icon name="Wrench" className="text-white" size={24} />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-2">Собственный сервисный центр</h3>
+                  <p className="text-muted-foreground">Склад запчастей с 99% наличием. Гарантийное и постгарантийное обслуживание</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                  <Icon name="Handshake" className="text-white" size={24} />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-2">Индивидуальные условия</h3>
+                  <p className="text-muted-foreground">Для корпоративных клиентов и партнеров. Гибкие схемы финансирования</p>
+                </div>
+              </div>
+
+              <div className="mt-8 pt-8 border-t">
+                <h4 className="font-bold mb-4 text-lg">Наши партнеры</h4>
+                <div className="flex flex-wrap gap-4 items-center">
+                  <div className="px-6 py-3 bg-white rounded-lg border-2 text-base font-semibold shadow-sm">Сбербанк</div>
+                  <div className="px-6 py-3 bg-white rounded-lg border-2 text-base font-semibold shadow-sm">ВТБ</div>
+                  <div className="px-6 py-3 bg-white rounded-lg border-2 text-base font-semibold shadow-sm">Совкомбанк</div>
+                  <div className="px-6 py-3 bg-white rounded-lg border-2 text-base font-semibold shadow-sm">Ресо</div>
+                </div>
               </div>
             </div>
-          </Card>
+          </div>
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary/80 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Получите лучшее предложение сегодня</h2>
-          <p className="text-xl mb-12 opacity-90">Оставьте заявку — рассчитаем за 15 минут!</p>
-          
-          <Card className="max-w-2xl mx-auto p-8">
-            <CardContent className="p-0">
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <Input 
-                  placeholder="Ваше имя" 
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  required
-                />
-                <Input 
-                  placeholder="Ваш телефон" 
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  required
-                />
-                <div className="flex items-start gap-2 text-left">
-                  <Checkbox id="consent" required />
-                  <label htmlFor="consent" className="text-sm text-muted-foreground cursor-pointer">
-                    Я согласен на обработку персональных данных
-                  </label>
-                </div>
-                <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90">
-                  Отправить заявку
-                </Button>
-              </form>
-              
-              <div className="grid md:grid-cols-3 gap-4 mt-8 pt-8 border-t">
-                <div className="flex items-center gap-2 justify-center">
-                  <Icon name="Car" className="text-primary" />
-                  <span className="text-sm">Тест-драйв</span>
-                </div>
-                <div className="flex items-center gap-2 justify-center">
-                  <Icon name="Clock" className="text-primary" />
-                  <span className="text-sm">Быстрая консультация</span>
-                </div>
-                <div className="flex items-center gap-2 justify-center">
-                  <Icon name="Gift" className="text-primary" />
-                  <span className="text-sm">Специальные условия</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+      <section className="py-20 bg-gradient-to-br from-secondary via-secondary/95 to-secondary text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+        </div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">Готовы сделать шаг?</h2>
+          <p className="text-xl md:text-2xl mb-12 opacity-90 max-w-3xl mx-auto">
+            Не откладывайте рост вашего бизнеса. Получите специальные условия до конца месяца!
+          </p>
+          <Button 
+            size="lg" 
+            className="text-xl px-12 py-6 bg-accent hover:bg-accent/90"
+            onClick={scrollToForm}
+          >
+            Узнать об акции
+          </Button>
+        </div>
+      </section>
+
+      <section ref={formRef} className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">Получите персональное коммерческое предложение</h2>
+              <p className="text-xl text-muted-foreground">
+                Менеджер рассчитает стоимость и запишет вас на тест-драйв в удобное время
+              </p>
+            </div>
+
+            <Card className="p-8 shadow-2xl border-2">
+              <CardContent className="p-0">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {selectedBrand && (
+                    <div className="p-4 bg-accent/10 rounded-lg border-2 border-accent/20">
+                      <p className="text-sm text-muted-foreground mb-2">Ваш выбор:</p>
+                      <p className="font-bold text-lg">{selectedBrand} — {selectedModel}</p>
+                    </div>
+                  )}
+
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">Ваше имя</label>
+                    <Input 
+                      placeholder="Например, Иван" 
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      className="text-lg py-6"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">Телефон</label>
+                    <Input 
+                      placeholder="+7 (___) ___-__-__" 
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      className="text-lg py-6"
+                      required
+                    />
+                  </div>
+
+                  <div className="flex items-start gap-2">
+                    <Checkbox id="consent" required />
+                    <label htmlFor="consent" className="text-sm text-muted-foreground cursor-pointer leading-relaxed">
+                      Согласен на обработку персональных данных
+                    </label>
+                  </div>
+
+                  <Button type="submit" size="lg" className="w-full text-lg py-6 bg-accent hover:bg-accent/90">
+                    Получить предложение
+                  </Button>
+
+                  <p className="text-center text-sm text-muted-foreground mt-4">
+                    <Icon name="Lock" className="inline mr-1" size={14} />
+                    Конфиденциально. Ваши данные не будут переданы третьим лицам.
+                  </p>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 
@@ -414,7 +412,7 @@ export default function Index() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
                   <Icon name="Package" className="text-white" size={24} />
                 </div>
                 <div>
